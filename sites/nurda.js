@@ -6,7 +6,6 @@ copyBtn.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(phone.replace(/\s/g, ''));
   } catch (e) {
-    // clipboard unavailable — fail silently, number is still visible
   }
   copyBtn.classList.add('copied');
   copyLabel.textContent = 'Скопировано';
