@@ -3,205 +3,425 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5 MEMBER GROUP</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="index.css">
+<title>Наша команда — 5 человек</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f1014;
+    color: #eef0f4;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 18px 16px 16px;
+  }
+
+  h1 {
+    font-size: clamp(18px, 3.5vw, 26px);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  h1 span { color: #e61919; }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .tab {
+    cursor: pointer;
+    border: 1px solid #2a2d36;
+    background: #171922;
+    color: #c6cad3;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+  .tab:hover { border-color: #e61919; color: #fff; }
+  .tab.active {
+    background: #e61919;
+    border-color: #e61919;
+    color: #fff;
+  }
+
+  .panels {
+    flex: 1 1 auto;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .panel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 40px 20px 80px;
+  }
+  .panel.active {
+    display: block;
+  }
+  .panel.from-right { animation: slideRight .3s ease; }
+  .panel.from-left  { animation: slideLeft  .3s ease; }
+
+  @keyframes slideRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+  @keyframes slideLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to   { transform: translateX(0);     opacity: 1; }
+  }
+
+  .profile {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #232634;
+    border: 3px solid #3a3e4d;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #6b7290;
+    font-size: 13px;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .avatar img.ok { display: block; }
+  .avatar-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .avatar:hover .avatar-btn { opacity: 1; }
+
+  .name {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .role {
+    color: #9aa3b2;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .about {
+    line-height: 1.7;
+    color: #c6cad3;
+    text-align: left;
+    width: 100%;
+    max-width: 720px;
+    margin-bottom: 24px;
+    padding: 18px 20px;
+    background: #171922;
+    border: 1px solid #2a2d36;
+    border-radius: 12px;
+  }
+  .about p { margin-bottom: 12px; }
+  .about p:last-child { margin-bottom: 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .tag {
+    background: #232634;
+    border: 1px solid #2f3342;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 13px;
+    color: #c6cad3;
+  }
+
+  .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .links a {
+    color: #eef0f4;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid #3a3e4d;
+    border-radius: 8px;
+    padding: 7px 14px;
+    transition: border-color 0.2s ease;
+  }
+  .links a:hover { border-color: #e61919; }
+
+  /* редактируемые блоки */
+  [contenteditable="true"] {
+    outline: none;
+    cursor: text;
+  }
+  [contenteditable="true"]:hover { box-shadow: 0 0 0 1px rgba(230,25,25,0.35); border-radius: 6px; }
+  [contenteditable="true"]:focus { box-shadow: 0 0 0 2px rgba(230,25,25,0.6); border-radius: 6px; }
+
+  .edit-hint {
+    margin-top: 28px;
+    font-size: 12px;
+    color: #4c5366;
+    text-align: center;
+    max-width: 720px;
+  }
+</style>
 </head>
 <body>
 
-<div class="mesh-bg"></div>
-<canvas id="particles"></canvas>
+<header>
+<h1>Наша команда <span>5 member group</span></h1>
 
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
+<div class="tabs">
+  <button class="tab active" data-tab="akyl">Akylbek</button>
+  <button class="tab" data-tab="nurda">Nurdaulet</button>
+  <button class="tab" data-tab="qana">Kanat</button>
+  <button class="tab" data-tab="arcno">ARCNOSIXTA</button>
+  <button class="tab" data-tab="era">Erasyl</button>
+</div>
+</header>
 
-<nav class="nav">
-  <span class="nav-brand">5MG</span>
-  <a href="#team" class="active">Команда</a>
-  <a href="#stats">Цифры</a>
-</nav>
+<div class="panels">
 
-<div class="content">
+  <section class="panel active from-right" id="akyl">
+    <div class="profile">
+      <div class="avatar">
+        <img data-photo alt="Фото Akylbek">
+        <label class="avatar-btn" for="file-akyl">Добавить фото</label>
+        <input type="file" id="file-akyl" accept="image/*" hidden>
+      </div>
 
-  <!-- ===== HERO ===== -->
-  <header class="hero">
-    <div class="hero-badge"><span class="dot"></span> Красный &times; Чёрный</div>
-    <h1 class="hero-title" aria-label="5 MEMBER GROUP">
-      <span class="char" style="animation-delay:0.3s">5</span><span class="char" style="animation-delay:0.4s"> </span><span class="char" style="animation-delay:0.45s">M</span><span class="char" style="animation-delay:0.5s">E</span><span class="char" style="animation-delay:0.55s">M</span><span class="char" style="animation-delay:0.6s">B</span><span class="char" style="animation-delay:0.65s">E</span><span class="char" style="animation-delay:0.7s">R</span><span class="char" style="animation-delay:0.8s"> </span><span class="char" style="animation-delay:0.85s">G</span><span class="char" style="animation-delay:0.9s">R</span><span class="char" style="animation-delay:0.95s">O</span><span class="char" style="animation-delay:1.0s">U</span><span class="char" style="animation-delay:1.05s">P</span>
-    </h1>
-    <div class="hero-line"></div>
-    <p class="hero-desc">
-      Пять человек &mdash; одна команда. <strong>Красный</strong> драйв и <strong>чёрная</strong> дисциплина.
-      Каталог наших сайтов: каждый участник &mdash; отдельная вселенная.
-    </p>
-    <button class="scroll-hint" id="scrollBtn" aria-label="Прокрутить вниз">
-      <div class="mouse"></div>
-      К команде
-    </button>
-  </header>
+      <h2 class="name" contenteditable="true" data-key="name">Kuat Akylbek</h2>
+      <div class="role" contenteditable="true" data-key="role">Frontend Developer</div>
 
-  <!-- ===== TEAM ===== -->
-  <section id="team" class="grid-wrap">
-    <div class="section-title">
-      <p class="section-label">Наша команда</p>
-      <h2 class="section-heading">Один коллектив &mdash; пять сайтов</h2>
-    </div>
+      <div class="about" contenteditable="true" data-key="about">
+        <p>Напиши здесь о себе — сколько хочешь информации. Просто кликни на текст и печатай. Всё сохраняется автоматически.</p>
+        <p>Здесь можно рассказать о своих проектах, опыте, интересах и целях.</p>
+      </div>
 
-    <div class="cards" role="list">
-
-      <!-- AKYL -->
-      <a href="sites/akyl.html" class="card" role="listitem">
-        <div class="specular"></div>
-        <div class="card-top">
-          <div class="card-avatar">А</div>
-          <div class="card-icon">
-            <svg viewBox="0 0 48 48">
-              <circle class="draw-path" cx="24" cy="14" r="8"/>
-              <path class="draw-path" d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16"/>
-            </svg>
-          </div>
-        </div>
-        <h2 class="card-name">Akylbek</h2>
-        <p class="card-role">Frontend Developer</p>
-        <p class="card-desc">Интерфейсы, анимации и код, который летает на 60fps.</p>
-        <span class="card-arrow">
-          Открыть сайт
-          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </span>
-        <div class="card-glow"></div>
-      </a>
-
-      <!-- NURDA -->
-      <a href="sites/nurda.html" class="card" role="listitem">
-        <div class="specular"></div>
-        <div class="card-top">
-          <div class="card-avatar">N</div>
-          <div class="card-icon">
-            <svg viewBox="0 0 48 48">
-              <rect class="draw-path" x="6" y="6" width="36" height="36" rx="4"/>
-              <circle class="draw-path" cx="24" cy="24" r="8"/>
-              <path class="draw-path" d="M6 24h8M34 24h8M24 6v8M24 34v8"/>
-            </svg>
-          </div>
-        </div>
-        <h2 class="card-name">Nurdaulet</h2>
-        <p class="card-role">UI/UX Designer</p>
-        <p class="card-desc">Проектирую интерфейсы, которые хочется трогать руками.</p>
-        <span class="card-arrow">
-          Открыть сайт
-          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </span>
-        <div class="card-glow"></div>
-      </a>
-
-      <!-- QANA -->
-      <a href="sites/qana.html" class="card" role="listitem">
-        <div class="specular"></div>
-        <div class="card-top">
-          <div class="card-avatar">Q</div>
-          <div class="card-icon">
-            <svg viewBox="0 0 48 48">
-              <polygon class="draw-path" points="24,4 44,18 44,38 24,44 4,38 4,18"/>
-              <line class="draw-path" x1="24" y1="4" x2="24" y2="44"/>
-              <line class="draw-path" x1="4" y1="18" x2="44" y2="18"/>
-            </svg>
-          </div>
-        </div>
-        <h2 class="card-name">Qanat</h2>
-        <p class="card-role">Backend Engineer</p>
-        <p class="card-desc">Серверы, базы и API &mdash; порядок даже в самом тёмном коде.</p>
-        <span class="card-arrow">
-          Открыть сайт
-          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </span>
-        <div class="card-glow"></div>
-      </a>
-
-      <!-- ARCNO -->
-      <a href="sites/arcno.html" class="card" role="listitem">
-        <div class="specular"></div>
-        <div class="card-top">
-          <div class="card-avatar">A</div>
-          <div class="card-icon">
-            <svg viewBox="0 0 48 48">
-              <path class="draw-path" d="M24 4L4 18v22a2 2 0 002 2h12V30h12v12h12a2 2 0 002-2V18L24 4z"/>
-              <circle class="draw-path" cx="24" cy="24" r="3"/>
-            </svg>
-          </div>
-        </div>
-        <h2 class="card-name">Arcnosixta</h2>
-        <p class="card-role">Project Manager</p>
-        <p class="card-desc">Организую хаос в продукт: сроки, люди и ноль срывов.</p>
-        <span class="card-arrow">
-          Открыть сайт
-          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </span>
-        <div class="card-glow"></div>
-      </a>
-
-      <!-- ERA -->
-      <a href="sites/era.html" class="card" role="listitem">
-        <div class="specular"></div>
-        <div class="card-top">
-          <div class="card-avatar">Е</div>
-          <div class="card-icon">
-            <svg viewBox="0 0 48 48">
-              <ellipse class="draw-path" cx="24" cy="24" rx="19" ry="12"/>
-              <circle class="draw-path" cx="24" cy="24" r="8"/>
-              <path class="draw-path" d="M24 5v38M5 24h38"/>
-            </svg>
-          </div>
-        </div>
-        <h2 class="card-name">Erasyl</h2>
-        <p class="card-role">Пятый участник</p>
-        <p class="card-desc">Новая вселенная команды. Сайт скоро появится в этой карточке.</p>
-        <span class="card-arrow">
-          Открыть сайт
-          <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </span>
-        <div class="card-glow"></div>
-      </a>
-
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">UI / UX</span>
+      </div>
+      <div class="links">
+        <a href="https://github.com/kuatakylbek44-ai">GitHub</a>
+      </div>
     </div>
   </section>
 
-  <!-- ===== STATS ===== -->
-  <section id="stats" class="stats">
-    <div class="stat" data-count="5" data-suffix="">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Человек в команде</div>
-    </div>
-    <div class="stat" data-count="4" data-suffix="">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Года опыта суммарно</div>
-    </div>
-    <div class="stat" data-count="3" data-suffix="">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Проекта за плечами</div>
-    </div>
-    <div class="stat" data-count="0" data-suffix="">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Отдачи &mdash; без вариантов</div>
+  <section class="panel" id="nurda">
+    <div class="profile">
+      <div class="avatar">
+        <img data-photo alt="Фото Nurdaulet">
+        <label class="avatar-btn" for="file-nurda">Добавить фото</label>
+        <input type="file" id="file-nurda" accept="image/*" hidden>
+      </div>
+
+      <h2 class="name" contenteditable="true" data-key="name">Nurdaulet</h2>
+      <div class="role" contenteditable="true" data-key="role">Разработчик</div>
+
+      <div class="about" contenteditable="true" data-key="about">
+        <p>Напиши здесь о себе — сколько хочешь информации. Просто кликни на текст и печатай. Всё сохраняется автоматически.</p>
+        <p>Здесь можно рассказать о своих проектах, опыте, интересах и целях.</p>
+      </div>
+
+      <div class="tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag">Backend</span>
+      </div>
+      <div class="links">
+        <a href="tel:+77750767521">+7 775 076 7521</a>
+      </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="#team">Команда</a>
-      <a href="#stats">Цифры</a>
-      <a href="sites/akyl.html">Акыл</a>
-      <a href="sites/nurda.html">Нурда</a>
-      <a href="sites/qana.html">Кана</a>
-      <a href="sites/arcno.html">Arcno</a>
-      <a href="sites/era.html">Era</a>
+  <section class="panel" id="qana">
+    <div class="profile">
+      <div class="avatar">
+        <img data-photo alt="Фото Kanat">
+        <label class="avatar-btn" for="file-qana">Добавить фото</label>
+        <input type="file" id="file-qana" accept="image/*" hidden>
+      </div>
+
+      <h2 class="name" contenteditable="true" data-key="name">Калмурзаев Канат</h2>
+      <div class="role" contenteditable="true" data-key="role">Разработчик мобильных и веб-приложений</div>
+
+      <div class="about" contenteditable="true" data-key="about">
+        <p>Напиши здесь о себе — сколько хочешь информации. Просто кликни на текст и печатай. Всё сохраняется автоматически.</p>
+        <p>Здесь можно рассказать о своих проектах, опыте, интересах и целях.</p>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Flutter</span>
+        <span class="tag">Dart</span>
+        <span class="tag">React</span>
+        <span class="tag">JavaScript</span>
+      </div>
+      <div class="links">
+        <a href="https://github.com/qalmurzayeev">GitHub</a>
+        <a href="https://t.me/qalmurzayeevv">Telegram</a>
+        <a href="mailto:qanatq@bk.ru">Почта</a>
+      </div>
     </div>
-    <p class="footer-text">5 MEMBER GROUP &copy; 2026 &mdash; Красный &times; Чёрный</p>
-  </footer>
+  </section>
+
+  <section class="panel" id="arcno">
+    <div class="profile">
+      <div class="avatar">
+        <img data-photo alt="Фото ARCNOSIXTA">
+        <label class="avatar-btn" for="file-arcno">Добавить фото</label>
+        <input type="file" id="file-arcno" accept="image/*" hidden>
+      </div>
+
+      <h2 class="name" contenteditable="true" data-key="name">ARCNOSIXTA</h2>
+      <div class="role" contenteditable="true" data-key="role">Продакт-менеджер / Frontend</div>
+
+      <div class="about" contenteditable="true" data-key="about">
+        <p>Напиши здесь о себе — сколько хочешь информации. Просто кликни на текст и печатай. Всё сохраняется автоматически.</p>
+        <p>Здесь можно рассказать о своих проектах, опыте, интересах и целях.</p>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Тактика</span>
+        <span class="tag">JS</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Deploy</span>
+      </div>
+      <div class="links">
+        <a href="mailto:arcnosixta@gmail.com">Почта</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="era">
+    <div class="profile">
+      <div class="avatar">
+        <img data-photo alt="Фото Erasyl">
+        <label class="avatar-btn" for="file-era">Добавить фото</label>
+        <input type="file" id="file-era" accept="image/*" hidden>
+      </div>
+
+      <h2 class="name" contenteditable="true" data-key="name">Erasyl</h2>
+      <div class="role" contenteditable="true" data-key="role">Frontend Developer</div>
+
+      <div class="about" contenteditable="true" data-key="about">
+        <p>Напиши здесь о себе — сколько хочешь информации. Просто кликни на текст и печатай. Всё сохраняется автоматически.</p>
+        <p>Здесь можно рассказать о своих проектах, опыте, интересах и целях.</p>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Three.js</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Animation</span>
+      </div>
+      <div class="links">
+        <a href="mailto:kuanysbek198@gmail.com">Почта</a>
+      </div>
+    </div>
+  </section>
 
 </div>
 
-<script src="index.js"></script>
+<div class="edit-hint">
+  Совет: наведи на фото и загрузи свою фотографию, а текст редактируй прямо на странице — всё сохранится автоматически в этом браузере.
+</div>
+
+<script>
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  var current = Array.prototype.indexOf.call(panels, document.querySelector('.panel.active'));
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () {
+      if (index === current) return;
+
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+
+      var target = document.getElementById(tab.dataset.tab);
+      target.classList.remove('from-left', 'from-right');
+      target.classList.add('active', index > current ? 'from-right' : 'from-left');
+
+      panels.forEach(function (p) {
+        if (p !== target) p.classList.remove('active');
+      });
+
+      current = index;
+    });
+  });
+
+  /* ---------- сохранение текста ---------- */
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  document.querySelectorAll('.panel').forEach(function (panel) {
+    var id = panel.id;
+
+    panel.querySelectorAll('[data-key]').forEach(function (el) {
+      var key = id + '_' + el.dataset.key;
+      var saved = store.get(key);
+      if (saved && saved.trim()) el.innerHTML = saved;
+      el.addEventListener('input', function () { store.set(key, el.innerHTML); });
+      el.addEventListener('blur', function () { store.set(key, el.innerHTML); });
+    });
+
+    var input = panel.querySelector('input[type="file"]');
+    var img = panel.querySelector('[data-photo]');
+
+    var savedPhoto = store.get(id + '_photo');
+    if (savedPhoto) { img.src = savedPhoto; img.classList.add('ok'); }
+
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        img.src = reader.result;
+        img.classList.add('ok');
+        store.set(id + '_photo', reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
+
 </body>
 </html>
