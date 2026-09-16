@@ -1,7 +1,7 @@
 // copy phone number
 const copyBtn = document.getElementById('copy-btn');
 const copyLabel = document.getElementById('copy-label');
-const phone = '+7 877 507 6751';
+const phone = '+7 775 076 75 21';
 copyBtn.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(phone.replace(/\s/g, ''));
@@ -24,7 +24,7 @@ const io = new IntersectionObserver((entries) => {
       io.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.40 });
 revealEls.forEach(el => io.observe(el));
 
 // active nav link while scrolling to numbers section
