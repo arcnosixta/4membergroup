@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erasyl — 5 MG</title>
+<meta name="description" content="Erasyl — пятый участник 5 MEMBER GROUP. Developer и часть команды.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="era.css">
+</head>
+<body>
+
+<!-- 3D BACKGROUND -->
+<canvas id="bg3d" aria-hidden="true"></canvas>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" aria-hidden="true">
+  <div class="sp-bar"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+  <a href="#top" class="logo">er<span class="logo-dot">.</span>syl<span class="logo-slash">/</span></a>
+
+  <nav class="nav">
+    <a href="#intro" class="nav-link active">intro</a>
+    <a href="#skills" class="nav-link">skills</a>
+    <a href="#contact" class="nav-link">git in touch</a>
+  </nav>
+
+  <a href="../index.html" class="cat-link">
+    <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+      <path d="M2 14L14 2M14 2H4.5M14 2V11.5"
+        stroke="currentColor" stroke-width="1.6"/>
+    </svg>
+    catalog
+  </a>
+</header>
+
+<!-- MAIN -->
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="intro">
+    <div class="hero-inner rv">
+
+      <span class="hero-label">ERASYL — fifth member</span>
+
+      <h1 class="hero-title">
+        <span class="line"><span>Пятый участник,</span></span>
+        <span class="line"><span>который <em>оживляет</em></span></span>
+        <span class="line"><span>продукт<span class="dot">.</span></span></span>
+      </h1>
+
+      <p class="hero-sub">
+        Developer · энтузиаст · часть команды 5 MEMBER GROUP.
+        Код, интерфейсы и внимание к деталям, чтобы всё работало
+        и выглядело как надо.
+      </p>
+
+      <div class="hero-row">
+        <div class="hero-code">
+          <code>npm i era@5.0.0</code>
+        </div>
+
+        <a href="#skills" class="hero-btn">
+          toolbox <span class="arr">&darr;</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section section-skills" id="skills">
+    <div class="section-inner rv">
+
+      <span class="section-label">
+        <span class="label-dot green"></span> toolbox
+      </span>
+
+      <h2 class="section-title">
+        Инструменты,<br>с которыми работаю
+      </h2>
+
+      <div class="skills-grid">
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#4dff88"></span>
+          <span class="skill-name">JavaScript / TypeScript</span>
+          <span class="skill-level">advance</span>
+        </div>
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#22d3ee"></span>
+          <span class="skill-name">React / Next.js</span>
+          <span class="skill-level">advance</span>
+        </div>
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#a78bfa"></span>
+          <span class="skill-name">Node.js / API</span>
+          <span class="skill-level">pro</span>
+        </div>
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#facc15"></span>
+          <span class="skill-name">CSS / анимации</span>
+          <span class="skill-level">advance</span>
+        </div>
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#f472b6"></span>
+          <span class="skill-name">UI / UX</span>
+          <span class="skill-level">advance</span>
+        </div>
+
+        <div class="skill-card rv">
+          <span class="skill-dot" style="background:#34d399"></span>
+          <span class="skill-name">Git / DevOps</span>
+          <span class="skill-level">pro</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS -->
+  <section class="section section-features">
+    <div class="section-inner">
+
+      <span class="section-label">
+        <span class="label-dot green"></span> advantages
+      </span>
+
+      <h2 class="section-title">
+        Почему именно я<span class="dot">.</span>
+      </h2>
+
+      <div class="features">
+
+        <div class="feature-card rv">
+          <span class="feature-tag green">код</span>
+          <h3 class="feature-head">Чистый код<br>и структура</h3>
+          <p class="feature-desc">
+            Пишу читаемый, поддерживаемый код.
+            Каждый файл знает своё место.
+          </p>
+        </div>
+
+        <div class="feature-card rv">
+          <span class="feature-tag green">интерфейс</span>
+          <h3 class="feature-head">Живые<br>интерфейсы</h3>
+          <p class="feature-desc">
+            Анимации, микроинтеракции и плавность,
+            интерфейс должен откликаться.
+          </p>
+        </div>
+
+        <div class="feature-card rv">
+          <span class="feature-tag green">система</span>
+          <h3 class="feature-head">Масштабируемые<br>решения</h3>
+          <p class="feature-desc">
+            Думаю архитектурно: сегодня пилим,
+            завтра масштабируем без боли.
+          </p>
+        </div>
+
+        <div class="feature-card rv">
+          <span class="feature-tag green">команда</span>
+          <h3 class="feature-head">Командная<br>работа</h3>
+          <p class="feature-desc">
+            Коммуникация, code review, совместные решения,
+            вместе выходит лучше.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-contact" id="contact">
+    <div class="section-inner rv">
+
+      <span class="section-label">
+        <span class="label-dot green"></span> contact
+      </span>
+
+      <h2 class="section-title contact-title">
+        Давайте<br>свяжемся<span class="dot">.</span>
+      </h2>
+
+      <div class="contact-links">
+
+        <a href="mailto:kuanysbek198@gmail.com" class="contact-big">
+          kuanysbek198@gmail.com
+        </a>
+
+        <div class="contact-row">
+
+          <a href="#" class="contact-chip" target="_blank" rel="noopener">
+            GitHub
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+              <path d="M2 14L14 2M14 2H4.5M14 2V11.5"
+                stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </a>
+
+          <a href="#" class="contact-chip" target="_blank" rel="noopener">
+            Telegram
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+              <path d="M2 14L14 2M14 2H4.5M14 2V11.5"
+                stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-col">
+      <span class="footer-head">Site</span>
+      <a href="#intro">intro</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-head">Socials</span>
+      <a href="#">GitHub</a>
+      <a href="#">Telegram</a>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-head">More</span>
+      <a href="../index.html">catalog</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2026 Erasyl &middot; 5 MEMBER GROUP
+  </div>
+</footer>
+
+<script src="era.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="era3d.js"></script>
+
+</body>
+</html>
