@@ -15,18 +15,6 @@ copyBtn.addEventListener('click', async () => {
   }, 1800);
 });
 
-// scroll reveal
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      io.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.40 });
-revealEls.forEach(el => io.observe(el));
-
 // active nav link while scrolling to numbers section
 const numbersSection = document.getElementById('numbers');
 const numbersLink = document.querySelector('a[href="#numbers"]');
