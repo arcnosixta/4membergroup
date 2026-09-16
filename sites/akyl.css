@@ -1,0 +1,473 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080d18;
+    color: #e5e7eb;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* =========================
+   MAIN RESUME
+========================= */
+
+.resume {
+    max-width: 1050px;
+    margin: auto;
+    background: #111827;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background: linear-gradient(
+        135deg,
+        #111827,
+        #172554
+    );
+    padding: 45px;
+    border-bottom: 1px solid #263248;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+/* PROFILE PHOTO */
+
+.profile-photo {
+    width: 155px;
+    height: 155px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+}
+
+/* PROFILE TEXT */
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    color: white;
+    font-size: 46px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.job-title {
+    color: #38bdf8;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+
+/* CONTACT */
+
+.contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.contact span {
+    white-space: nowrap;
+}
+
+.contact a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    min-height: 600px;
+}
+
+.left {
+    padding: 40px;
+    border-right: 1px solid #263248;
+}
+
+.right {
+    padding: 40px;
+    background: #0f172a;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    margin-bottom: 38px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #38bdf8;
+}
+
+.section-title::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: #38bdf8;
+    border-radius: 50%;
+}
+
+/* =========================
+   ABOUT ME
+========================= */
+
+.about-text {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* =========================
+   EDUCATION
+========================= */
+
+.education-card {
+    position: relative;
+    padding-left: 20px;
+    border-left: 2px solid #334155;
+}
+
+.education-card::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 3px;
+    width: 12px;
+    height: 12px;
+    background: #38bdf8;
+    border-radius: 50%;
+}
+
+.university {
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.degree {
+    color: #38bdf8;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.education-details {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.gpa {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 13px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px;
+    color: #38bdf8;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill {
+    padding: 9px 16px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.skill:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   LANGUAGES
+========================= */
+
+.language {
+    margin-bottom: 18px;
+}
+
+.language:last-child {
+    margin-bottom: 0;
+}
+
+.language-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.language-name {
+    color: white;
+    font-weight: bold;
+}
+
+.language-level {
+    color: #38bdf8;
+    font-size: 13px;
+}
+
+.language-bar {
+    height: 5px;
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.language-progress {
+    height: 100%;
+    background: #38bdf8;
+    border-radius: 10px;
+}
+
+.kazakh {
+    width: 100%;
+}
+
+.russian {
+    width: 90%;
+}
+
+/* =========================
+   PERSONAL INFORMATION
+========================= */
+
+.info {
+    margin-bottom: 20px;
+}
+
+.info:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    color: #64748b;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    color: #e2e8f0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================
+   SOCIAL MEDIA
+========================= */
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    margin-bottom: 10px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.social-link:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateX(3px);
+}
+
+.instagram-icon {
+    font-size: 20px;
+}
+
+.social-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-name {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.social-username {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-box {
+    padding: 15px;
+    background: rgba(56, 189, 248, 0.06);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 10px;
+}
+
+.status-title {
+    color: #38bdf8;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.status-text {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #080d18;
+    border-top: 1px solid #263248;
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+    body {
+        padding: 0;
+    }
+
+    .resume {
+        border-radius: 0;
+    }
+
+    .header {
+        padding: 30px 25px;
+    }
+
+    .profile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .profile-photo {
+        width: 135px;
+        height: 135px;
+    }
+
+    .profile-info h1 {
+        font-size: 34px;
+    }
+
+    .contact {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .left {
+        border-right: none;
+        border-bottom: 1px solid #263248;
+        padding: 30px 25px;
+    }
+
+    .right {
+        padding: 30px 25px;
+    }
+
+}
+
+/* =========================
+   PRINT / PDF
+========================= */
+
+@media print {
+
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .resume {
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    .skill:hover {
+        transform: none;
+    }
+
+}
