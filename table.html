@@ -5,28 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Создание таблицы</title>
   <style>
+  /* Ашық режимнің түстері. */
+  :root {
+    color-scheme: light;
+    --page-bg: #f3f4f6;
+    --text: #27303e;
+    --surface: #ffffff;
+    --soft-bg: #e7eaf0;
+    --muted: #525d70;
+    --border: #737e90;
+  }
+
+  /* Қараңғы режимнің түстері. */
+  body.dark-mode {
+    color-scheme: dark;
+    --page-bg: #0f1014;
+    --text: #eef0f4;
+    --surface: #171922;
+    --soft-bg: #232634;
+    --muted: #b5bdcc;
+    --border: #8792a5;
+  }
+
     * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      color: #27303e;
+      background: var(--page-bg);
+      color: var(--text);
       max-width: 800px;
       margin: 40px auto;
       padding: 0 20px;
       line-height: 1.5;
     }
-    a { color: #b31515; text-decoration: none; }
+    a { color: var(--text); text-decoration: none; }
     a:hover { text-decoration: underline; }
     h1 { font-size: 28px; margin-bottom: 8px; }
-    p { color: #5b6472; }
+    p { color: var(--muted); }
     form {
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
       align-items: flex-end;
       padding: 20px;
-      background: white;
-      border: 1px solid #e0e3e8;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
       box-shadow: 0 4px 12px #00000008;
     }
@@ -35,7 +57,7 @@
       width: 100px;
       padding: 10px;
       font-size: 16px;
-      border: 1px solid #bcc3ce;
+      border: 1px solid var(--border);
       border-radius: 6px;
     }
     select { width: auto; }
@@ -52,12 +74,36 @@
     button:hover { background: #901111; }
     #message { margin-top: 24px; }
     .table-container { overflow-x: auto; margin-top: 20px; }
-    table { border-collapse: collapse; background: white; }
-    td { border: 1px solid #bcc3ce; min-width: 50px; height: 50px; }
+    table { border-collapse: collapse; background: var(--surface); }
+    td { border: 1px solid var(--border); min-width: 50px; height: 50px; }
+
+  .theme-toggle {
+    margin-top: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { background: var(--soft-bg); }
+  button:focus-visible, a:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+  input, select, textarea {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
   </style>
+  <script src="theme.js" defer></script>
 </head>
 <body>
   <a href="index.html">← На главную</a>
+  <button id="theme-toggle" class="theme-toggle" type="button">🌙 Қараңғы режим</button>
   <h1>Создание таблицы</h1>
   <p>Введите количество строк и столбцов от 1 до 30.</p>
 

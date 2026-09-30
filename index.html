@@ -5,14 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Наша команда — 5 человек</title>
 <style>
+  /* Ашық режимнің түстері. */
+  :root {
+    color-scheme: light;
+    --page-bg: #f3f4f6;
+    --text: #27303e;
+    --surface: #ffffff;
+    --soft-bg: #e7eaf0;
+    --muted: #525d70;
+    --border: #737e90;
+  }
+
+  /* Қараңғы режимнің түстері. */
+  body.dark-mode {
+    color-scheme: dark;
+    --page-bg: #0f1014;
+    --text: #eef0f4;
+    --surface: #171922;
+    --soft-bg: #232634;
+    --muted: #b5bdcc;
+    --border: #8792a5;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body { height: 100%; }
 
   body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #0f1014;
-    color: #eef0f4;
+    background: var(--page-bg);
+    color: var(--text);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -42,16 +64,16 @@
 
   .tab {
     cursor: pointer;
-    border: 1px solid #2a2d36;
-    background: #171922;
-    color: #c6cad3;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
     font-size: 15px;
     font-weight: 700;
     padding: 9px 18px;
     border-radius: 10px;
     transition: all 0.2s ease;
   }
-  .tab:hover { border-color: #e61919; color: #fff; }
+  .tab:hover { border-color: #e61919; color: var(--text); }
   .tab.active {
     background: #e61919;
     border-color: #e61919;
@@ -102,15 +124,15 @@
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    background: #232634;
-    border: 3px solid #3a3e4d;
+    background: var(--soft-bg);
+    border: 3px solid var(--border);
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    color: #6b7290;
+    color: var(--muted);
     font-size: 13px;
   }
   .avatar img {
@@ -142,21 +164,21 @@
     margin-bottom: 6px;
   }
   .role {
-    color: #9aa3b2;
+    color: var(--muted);
     font-size: 16px;
     margin-bottom: 24px;
   }
 
   .about {
     line-height: 1.7;
-    color: #c6cad3;
+    color: var(--text);
     text-align: left;
     width: 100%;
     max-width: 720px;
     margin-bottom: 24px;
     padding: 18px 20px;
-    background: #171922;
-    border: 1px solid #2a2d36;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
   }
   .about p { margin-bottom: 12px; }
@@ -164,20 +186,20 @@
 
   .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
   .tag {
-    background: #232634;
-    border: 1px solid #2f3342;
+    background: var(--soft-bg);
+    border: 1px solid var(--border);
     border-radius: 999px;
     padding: 5px 12px;
     font-size: 13px;
-    color: #c6cad3;
+    color: var(--text);
   }
 
   .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   .links a {
-    color: #eef0f4;
+    color: var(--text);
     text-decoration: none;
     font-size: 14px;
-    border: 1px solid #3a3e4d;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 7px 14px;
     transition: border-color 0.2s ease;
@@ -195,20 +217,46 @@
   .edit-hint {
     margin-top: 28px;
     font-size: 12px;
-    color: #4c5366;
+    color: var(--muted);
     text-align: center;
     max-width: 720px;
   }
   .assignment-link {
     display: inline-block;
     margin-top: 12px;
-    color: #eef0f4;
+    color: var(--text);
   }
+
+  .theme-toggle {
+    margin-top: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { background: var(--soft-bg); }
+  button:focus-visible, a:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+  input, select, textarea {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  table { border-collapse: collapse; background: var(--surface); }
+  th, td { border: 1px solid var(--border); }
 </style>
+<script src="theme.js" defer></script>
 </head>
 <body>
 
 <header>
+<button id="theme-toggle" class="theme-toggle" type="button">🌙 Қараңғы режим</button>
 <h1>Наша команда <span>5 member group</span></h1>
 
 <div class="tabs">
