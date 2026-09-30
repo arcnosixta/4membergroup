@@ -1,6 +1,9 @@
-// Элементті ID бойынша тауып, мәтінін өзгертеміз.
+// Батырманы басқанда элементтің мәтінін өзгертеміз.
 const greeting = document.getElementById('greeting');
-greeting.textContent = 'Сәлем, әлем!';
+const greetingButton = document.getElementById('change-greeting');
+greetingButton.onclick = function () {
+  greeting.textContent = 'Сәлем, әлем!';
+};
 
 // Жаңа элемент тек батырманы басқанда жасалады.
 const createElementButton = document.getElementById('create-element');
