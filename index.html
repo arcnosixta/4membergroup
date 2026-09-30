@@ -317,7 +317,6 @@
 <body>
 
 <header>
-<button id="theme-toggle" class="theme-toggle" type="button">🌙 Қараңғы режим</button>
 <h1>Наша команда <span>5 member group</span></h1>
 
 <div class="tabs">
@@ -330,7 +329,8 @@
 <div class="assignment-tabs" aria-label="Тапсырмалар">
   <button class="tab" type="button" data-tab="task1">1-тапсырма</button>
   <button class="tab" type="button" data-tab="task2">2-тапсырма</button>
-  <button class="tab" type="button" data-tab="task34">3–4 тапсырма</button>
+  <button class="tab" type="button" data-tab="task3">3-тапсырма</button>
+  <button class="tab" type="button" data-tab="task4">4-тапсырма</button>
 </div>
 </header>
 
@@ -503,9 +503,9 @@ Frontend-разработчик (Flutter)
   </div>
 </section>
 
-<section class="panel assignment-panel" id="task34">
+<section class="panel assignment-panel" id="task3">
   <div class="assignment-card">
-  <h2>3–4 тапсырма — кесте және тақырып</h2>
+  <h2>3-тапсырма — кесте</h2>
   <p>Введите количество строк и столбцов от 1 до 30.</p>
 
   <form id="table-form">
@@ -537,6 +537,15 @@ Frontend-разработчик (Flutter)
   <button class="task-button" id="count-button" type="button">Подсчитать</button>
   </div>
   <p id="count-result" aria-live="polite">Выберите цвет и нажмите «Подсчитать».</p>
+  <p id="all-colors-result" aria-live="polite">Боялған ұяшықтар жоқ.</p>
+  </div>
+</section>
+
+<section class="panel assignment-panel" id="task4">
+  <div class="assignment-card">
+    <h2>4-тапсырма — қараңғы режим</h2>
+    <p>Батырманы басып, ашық және қараңғы режимді ауыстырыңыз.</p>
+    <button id="theme-toggle" class="theme-toggle" type="button">🌙 Қараңғы режим</button>
   </div>
 </section>
 </div>

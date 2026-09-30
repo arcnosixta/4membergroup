@@ -71,6 +71,7 @@ showClasses();
 
       document.getElementById("message").textContent =
         "Создана таблица: " + rows + " × " + columns;
+      countAllColors(); // Жаңа кесте үшін түстер санын жаңартамыз.
     }
 
     // Браузер проверяет ограничения полей перед отправкой формы.
@@ -81,9 +82,11 @@ showClasses();
       createTable(rows, columns);
     });
 
-// Бұрынғы кесте сілтемесінен келгенде 3–4 тапсырманы ашамыз.
+// Бұрынғы 3–4 сілтемесі енді 3-тапсырманы ашады.
+let initialTab = window.location.hash;
+if (initialTab === '#task34') initialTab = '#task3';
 tabs.forEach(function (tab) {
-  if ('#' + tab.dataset.tab === window.location.hash) {
+  if ('#' + tab.dataset.tab === initialTab) {
     tab.click();
   }
 });
