@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создание таблицы</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    a { color: #b31515; }
+    form { display: flex; flex-wrap: wrap; gap: 15px; align-items: end; }
+    label { display: flex; flex-direction: column; gap: 5px; }
+    input { width: 100px; padding: 10px; font-size: 16px; }
+    button {
+      padding: 12px 20px;
+      background: #b31515;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .table-container { overflow-x: auto; margin-top: 20px; }
+    table { border-collapse: collapse; background: white; }
+    td { border: 1px solid #777; min-width: 45px; height: 45px; }
+  </style>
+</head>
+<body>
+  <a href="index.html">← На главную</a>
+  <h1>Создание таблицы</h1>
+  <p>Введите количество строк и столбцов от 1 до 30.</p>
+
+  <form id="table-form">
+    <label for="rows">Строки
+      <input id="rows" type="number" min="1" max="30" step="1" value="3" required>
+    </label>
+    <label for="columns">Столбцы
+      <input id="columns" type="number" min="1" max="30" step="1" value="4" required>
+    </label>
+    <button type="submit">Создать таблицу</button>
+  </form>
+
+  <p id="message" aria-live="polite">Таблица появится после нажатия кнопки.</p>
+  <div class="table-container">
+    <table id="table" aria-label="Созданная таблица"></table>
+  </div>
+
+  <script>
+    // Функция заполняет таблицу указанным количеством строк и столбцов.
+    function createTable(rows, columns) {
+      const table = document.getElementById("table");
+      table.innerHTML = ""; // Удаляем предыдущие строки.
+
+      for (let i = 0; i < rows; i++) {
+        const row = table.insertRow(); // Создаём строку.
+
+        for (let j = 0; j < columns; j++) {
+          row.insertCell(); // Добавляем ячейку в эту строку.
+        }
+      }
+
+      document.getElementById("message").textContent =
+        "Создана таблица: " + rows + " × " + columns;
+    }
+
+    // Браузер проверяет ограничения полей перед отправкой формы.
+    document.getElementById("table-form").addEventListener("submit", function (event) {
+      event.preventDefault(); // Не даём странице перезагрузиться.
+      const rows = Number(document.getElementById("rows").value);
+      const columns = Number(document.getElementById("columns").value);
+      createTable(rows, columns);
+    });
+  </script>
+</body>
+</html>
