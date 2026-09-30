@@ -2,15 +2,23 @@
 const greeting = document.getElementById('greeting');
 greeting.textContent = 'Сәлем, әлем!';
 
-// Жаңа div жасап, body соңына қосамыз.
-const newDiv = document.createElement('div');
-newDiv.className = 'new-div';
-newDiv.textContent = 'Мен жаңа элементпін';
-newDiv.hidden = true;
-document.body.appendChild(newDiv);
+// Жаңа элемент тек батырманы басқанда жасалады.
+const createElementButton = document.getElementById('create-element');
+createElementButton.onclick = function () {
+  const newDiv = document.createElement('div');
+  newDiv.className = 'new-div';
+  newDiv.textContent = 'Мен жаңа элементпін';
+  document.body.appendChild(newDiv);
+  createElementButton.disabled = true; // Бір элемент қосу жеткілікті.
+};
 
-// Ескі элементті класы бойынша тауып, жоямыз.
-document.querySelector('.old-element').remove();
+// Ескі элемент жою батырмасы басылғанша көрініп тұрады.
+const oldElement = document.querySelector('.old-element');
+const deleteElementButton = document.getElementById('delete-element');
+deleteElementButton.onclick = function () {
+  oldElement.remove();
+  deleteElementButton.disabled = true;
+};
 
 // Басуға болатын жаңа абзац жасаймыз.
 const paragraph = document.createElement('p');
@@ -20,10 +28,15 @@ paragraph.tabIndex = 0;
 paragraph.setAttribute('role', 'button');
 document.getElementById('paragraph-container').appendChild(paragraph);
 
-// Абзацты басқанда мәтіннің түсі мен өлшемін өзгертеміз.
+// Қайта басқанда бастапқы түсі мен өлшеміне оралады.
 paragraph.onclick = function () {
-  paragraph.style.color = '#e64b4b';
-  paragraph.style.fontSize = '24px';
+  if (paragraph.style.fontSize === '24px') {
+    paragraph.style.color = '';
+    paragraph.style.fontSize = '';
+  } else {
+    paragraph.style.color = '#e64b4b';
+    paragraph.style.fontSize = '24px';
+  }
 };
 
 // Enter немесе бос орын пернесімен де басуға болады.

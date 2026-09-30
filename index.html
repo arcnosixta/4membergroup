@@ -291,7 +291,7 @@
   .table-container { overflow-x: auto; margin: 20px 0; }
   #table td { min-width: 50px; height: 50px; cursor: pointer; }
   #greeting { font-size: 20px; font-weight: bold; }
-  #change-paragraph, .demo-element {
+  #change-paragraph, .demo-element, .old-element {
     padding: 16px;
     background: var(--soft-bg);
     border: 1px solid var(--border);
@@ -299,7 +299,9 @@
   }
   #change-paragraph { cursor: pointer; }
   #change-paragraph:focus-visible { outline: 2px solid var(--text); }
-  .demo-element { margin: 16px 0; }
+  .demo-element, .old-element { margin: 16px 0; }
+  .element-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+  .task-button:disabled { opacity: 0.5; cursor: default; }
   .demo-element.active { background: #b31515; color: white; }
   .new-div {
     width: calc(100% - 40px);
@@ -486,9 +488,13 @@ Frontend-разработчик (Flutter)
 <section class="panel assignment-panel" id="task1">
   <div class="assignment-card">
     <h2>1-тапсырма</h2>
-    <p class="assignment-hint">Мәтін JavaScript арқылы өзгереді. Төмендегі абзацты басып көріңіз.</p>
+    <p class="assignment-hint">Батырмалармен элемент қосып, жойып көріңіз. Абзацты қайта басқанда бастапқы түрі қайтады.</p>
     <p id="greeting">Бұл бастапқы мәтін.</p>
-    <div class="old-element">Бұл ескі элемент жойылады.</div>
+    <div class="old-element">Бұл ескі элемент.</div>
+    <div class="element-actions">
+      <button id="create-element" class="task-button" type="button">Жаңа элемент жасау</button>
+      <button id="delete-element" class="task-button" type="button">Ескі элементті жою</button>
+    </div>
     <div id="paragraph-container"></div>
   </div>
 </section>
@@ -576,7 +582,8 @@ Frontend-разработчик (Flutter)
 
       // Тапсырмаларда профиль кеңесін жасырамыз.
       document.querySelector('.edit-hint').hidden = target.classList.contains('assignment-panel');
-      document.querySelector('.new-div').hidden = target.id !== 'task1';
+      var newDiv = document.querySelector('.new-div');
+      if (newDiv) newDiv.hidden = target.id !== 'task1';
       current = index;
     });
   });
