@@ -5,30 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Создание таблицы</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #222;
-      max-width: 900px;
-      margin: 30px auto;
+      background: #f3f4f6;
+      color: #27303e;
+      max-width: 800px;
+      margin: 40px auto;
       padding: 0 20px;
+      line-height: 1.5;
     }
-    a { color: #b31515; }
-    form { display: flex; flex-wrap: wrap; gap: 15px; align-items: end; }
-    label { display: flex; flex-direction: column; gap: 5px; }
-    input { width: 100px; padding: 10px; font-size: 16px; }
+    a { color: #b31515; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    p { color: #5b6472; }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: flex-end;
+      padding: 20px;
+      background: white;
+      border: 1px solid #e0e3e8;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px #00000008;
+    }
+    label { display: flex; flex-direction: column; gap: 6px; }
+    input {
+      width: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #bcc3ce;
+      border-radius: 6px;
+    }
+    input:focus { outline: 2px solid #b31515; outline-offset: 2px; }
     button {
       padding: 12px 20px;
       background: #b31515;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
     }
+    button:hover { background: #901111; }
+    #message { margin-top: 24px; }
     .table-container { overflow-x: auto; margin-top: 20px; }
     table { border-collapse: collapse; background: white; }
-    td { border: 1px solid #777; min-width: 45px; height: 45px; }
+    td { border: 1px solid #bcc3ce; min-width: 50px; height: 50px; }
   </style>
 </head>
 <body>
