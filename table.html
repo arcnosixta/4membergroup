@@ -31,14 +31,15 @@
       box-shadow: 0 4px 12px #00000008;
     }
     label { display: flex; flex-direction: column; gap: 6px; }
-    input {
+    input, select {
       width: 100px;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #bcc3ce;
       border-radius: 6px;
     }
-    input:focus { outline: 2px solid #b31515; outline-offset: 2px; }
+    select { width: auto; }
+    input:focus, select:focus { outline: 2px solid #b31515; outline-offset: 2px; }
     button {
       padding: 12px 20px;
       background: #b31515;
@@ -75,11 +76,24 @@
     <table id="table" aria-label="Созданная таблица"></table>
   </div>
 
+  <p>Нажимайте на ячейку, чтобы менять её цвет: красный, зелёный, синий, жёлтый.</p>
+  <label for="count-color">Цвет для подсчёта</label>
+  <select id="count-color">
+    <option value="red">Красный</option>
+    <option value="green">Зелёный</option>
+    <option value="blue">Синий</option>
+    <option value="yellow">Жёлтый</option>
+  </select>
+  <button id="count-button" type="button">Подсчитать</button>
+  <p id="count-result" aria-live="polite">Выберите цвет и нажмите «Подсчитать».</p>
+
   <script>
     // Функция заполняет таблицу указанным количеством строк и столбцов.
     function createTable(rows, columns) {
       const table = document.getElementById("table");
       table.innerHTML = ""; // Удаляем предыдущие строки.
+      document.getElementById("count-result").textContent =
+        "Выберите цвет и нажмите «Подсчитать».";
 
       for (let i = 0; i < rows; i++) {
         const row = table.insertRow(); // Создаём строку.
@@ -102,5 +116,6 @@
     });
   </script>
   <script src="sites/cell-colors.js"></script>
+  <script src="color-count.js"></script>
 </body>
 </html>
