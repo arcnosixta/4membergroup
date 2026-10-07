@@ -15,15 +15,15 @@ async function request(path, method = 'GET', data) {
 }
 
 export async function getProducts() {
-  const data = await request('?limit=20&select=title,price');
-  if (!Array.isArray(data.products) || !data.products.every(product =>
+  const data = await request('?limit=0');
+  if (!Array.isArray(data?.products) || !data.products.every(product =>
     product && Number.isInteger(product.id) && product.id > 0 &&
     typeof product.title === 'string' &&
     Number.isFinite(product.price) && product.price >= 0
   )) {
     throw new Error('Сервер вернул неверный список товаров.');
   }
-  return data.products.map(({ id, title, price }) => ({ id, title, price }));
+  return data.products;
 }
 
 export function createProduct(data) {

@@ -1,9 +1,10 @@
+import { fieldsMarkup, fillFields, readFields } from './fields.js';
 import { updateProduct } from './api.js';
 
 export function initEdit(app) {
   const container = document.getElementById('edit-container');
   container.innerHTML = `
-    <p id="edit-hint">Выберите товар кнопкой «Изменить» в таблице.</p>
+    <p id="edit-hint">Выберите товар кнопкой «Изменить» в каталоге.</p>
     <form id="edit-form" hidden>
       <fieldset id="edit-fieldset">
         <label for="edit-title">Название
@@ -12,6 +13,7 @@ export function initEdit(app) {
         <label for="edit-price">Цена, $
           <input id="edit-price" type="number" min="0" max="1000000" step="0.01" required>
         </label>
+        ${fieldsMarkup('edit')}
         <div class="actions">
           <button type="submit">Сохранить</button>
           <button id="edit-cancel" type="button">Отмена</button>
@@ -35,7 +37,8 @@ export function initEdit(app) {
     selectedId = null;
     form.hidden = true;
     form.reset();
-    hint.textContent = 'Выберите товар кнопкой «Изменить» в таблице.';
+    app.closeEditor?.();
+    hint.textContent = 'Выберите товар кнопкой «Изменить» в каталоге.';
   }
 
   // ID бойынша тауарды таңдап, бар деректерін формаға толтырамыз.
@@ -48,10 +51,12 @@ export function initEdit(app) {
       return;
     }
     selectedId = product.id;
+    fillFields('edit', product);
     titleInput.value = product.title;
     priceInput.value = String(product.price);
     hint.textContent = 'Редактируется товар ID ' + product.id + '.';
     form.hidden = false;
+    app.openEditor?.();
     titleInput.focus();
   };
 
@@ -88,13 +93,16 @@ export function initEdit(app) {
     }
     if (!form.reportValidity()) return;
 
+    let data;
+    try { data = { title, price, ...readFields('edit', product) }; }
+    catch (error) { app.showStatus(error.message, true); return; }
+
     app.setBusy(true);
     app.showStatus('Сохранение изменений…');
     try {
       // Сервердегі тауарға PUT; теріс ID бар жаңа тауарға сұрау жібермейміз.
-      if (product.id > 0) await updateProduct(product.id, { title, price });
-      product.title = title;
-      product.price = price;
+      if (product.id > 0) await updateProduct(product.id, data);
+      Object.assign(product, data);
       app.render();
       closeForm();
       app.showStatus('Товар изменён');

@@ -1,3 +1,4 @@
+import { fieldsMarkup, fillFields, readFields } from './fields.js';
 import { createProduct } from './api.js';
 
 export function initCreate(app) {
@@ -12,6 +13,7 @@ export function initCreate(app) {
         <label for="create-price">Цена, $
           <input id="create-price" type="number" min="0" max="1000000" step="0.01" required>
         </label>
+        ${fieldsMarkup('create')}
         <button type="submit">Добавить</button>
       </fieldset>
     </form>
@@ -45,14 +47,19 @@ export function initCreate(app) {
       return;
     }
 
+    let data;
+    try { data = { title, price, ...readFields('create') }; }
+    catch (error) { app.showStatus(error.message, true); return; }
+
     app.setBusy(true);
     app.showStatus('Добавление товара…');
     try {
-      await createProduct({ title, price });
+      await createProduct(data);
       // Сұрау сәтті болса ғана тауарды тізімнің басына қосамыз.
-      app.products.unshift({ id: app.nextLocalId--, title, price });
+      app.products.unshift({ ...data, id: app.nextLocalId-- });
       app.render();
       form.reset();
+      app.closeCreator?.();
       app.showStatus('Товар добавлен');
     } catch (error) {
       app.showStatus(error.message, true);

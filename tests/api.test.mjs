@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../crud/api.js';
 
-test('GET returns the product list, keeping only our three fields', async t => {
+test('GET returns the product list, preserving full product details', async t => {
   t.mock.method(globalThis, 'fetch', async (url, options) => {
-    assert.equal(url, 'https://dummyjson.com/products?limit=20&select=title,price');
+    assert.equal(url, 'https://dummyjson.com/products?limit=0');
     assert.equal(options.method, 'GET');
     return Response.json({ products: [{ id: 1, title: 'Товар', price: 0, stock: 5 }] });
   });
-  assert.deepEqual(await getProducts(), [{ id: 1, title: 'Товар', price: 0 }]);
+  assert.deepEqual(await getProducts(), [{ id: 1, title: 'Товар', price: 0, stock: 5 }]);
 });
 
 test('empty list is valid', async t => {

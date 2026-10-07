@@ -247,3 +247,39 @@ test('unready or busy applications ignore edit, submit and cancel actions', asyn
   assert.deepEqual(ui.app.products, before);
   assert.equal(fetch.mock.callCount(), 0);
 });
+
+test('extended fields are sent to API and unrelated product metadata is preserved', async t => {
+  const ui = setup(t);
+  Object.assign(ui.app.products[0], { description: 'Old', rating: 4, stock: 12, images: ['https://example.com/old.png'], reviews: [{ comment: 'Good' }], dimensions: { width: 10 } });
+  let payload;
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    payload = JSON.parse(options.body);
+    return Response.json(payload);
+  });
+  ui.app.onEdit(1);
+  assert.equal(ui.get('edit-description').value, 'Old');
+  ui.get('edit-description').value = 'New description';
+  ui.get('edit-rating').value = '4.75';
+  ui.get('edit-stock').value = '0';
+  ui.get('edit-images').value = 'https://example.com/one.png\nhttps://example.com/two.png';
+  await ui.form.emit('submit');
+  assert.equal(payload.description, 'New description');
+  assert.equal(payload.stock, 0);
+  assert.equal(payload.rating, 4.75);
+  assert.equal(payload.images.length, 2);
+  assert.deepEqual(ui.app.products[0].dimensions, { width: 10 });
+  assert.deepEqual(ui.app.products[0].reviews, [{ comment: 'Good' }]);
+});
+
+test('invalid rating, fractional stock and unsafe image URLs do not mutate the product', async t => {
+  const ui = setup(t);
+  t.mock.method(globalThis, 'fetch', async () => { assert.fail('must not call API'); });
+  for (const [field, value] of [['rating', '6'], ['stock', '1.5'], ['thumbnail', 'javascript:alert(1)'], ['images', 'data:text/html,bad']]) {
+    ui.app.onEdit(1);
+    ui.get('edit-' + field).value = value;
+    await ui.form.emit('submit');
+    assert.equal(ui.statuses.at(-1).isError, true);
+    assert.equal(ui.app.products[0].title, 'First');
+    assert.equal(ui.form.hidden, false);
+  }
+});
