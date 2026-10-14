@@ -1,21 +1,6 @@
-import { safeImageUrl } from './fields.js';
-export function element(tag, text, className) {
-  const node = document.createElement(tag);
-  if (text !== undefined) node.textContent = text;
-  if (className) node.className = className;
-  return node;
-}
-export function productImage(url, title) {
-  const frame = element('div', undefined, 'image-frame');
-  const source = safeImageUrl(url);
-  if (!source) { frame.textContent = 'Нет фотографии'; return frame; }
-  const img = document.createElement('img');
-  img.src = source; img.alt = title; img.loading = 'lazy';
-  img.addEventListener('error', () => { frame.replaceChildren(element('span', 'Фото недоступно')); });
-  frame.append(img);
-  return frame;
-}
-export const money = value => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'USD' }).format(value);
+import { element, productImage, money } from './view.js';
+export { element, productImage, money } from './view.js';
+import { reviewsView } from './reviews.js';
 const names = {
   id: 'ID', title: 'Название', description: 'Описание', category: 'Категория', price: 'Цена, $',
   discountPercentage: 'Скидка, %', rating: 'Рейтинг', stock: 'Остаток, шт.', tags: 'Теги', brand: 'Бренд',
@@ -75,7 +60,7 @@ export function showDetails(product, app) {
   actions.append(edit, remove); info.append(actions); layout.append(gallery, info); content.append(layout);
   const specs = Object.fromEntries(Object.entries(product).filter(([key]) => !['images', 'thumbnail', 'title', 'description', 'price', 'reviews'].includes(key)));
   content.append(element('h3', 'Характеристики и условия'), valueView(specs));
-  content.append(element('h3', 'Отзывы покупателей'), valueView(product.reviews || []));
+  content.append(element('h3', 'Отзывы покупателей'), reviewsView(product.reviews || []));
   content.append(element('p', '', 'dialog-status'));
   content.lastElementChild.setAttribute('role', 'status');
   document.getElementById('detail-dialog').showModal();

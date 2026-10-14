@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FORMA — каталог товаров</title>
   <link rel="stylesheet" href="crud/styles.css">
+  <link rel="stylesheet" href="users/styles.css">
+  <link rel="stylesheet" href="crud/reviews.css">
   <script type="module" src="crud/app.js"></script>
 </head>
 <body>
@@ -27,5 +29,6 @@
   <dialog id="detail-dialog" aria-labelledby="detail-title"><button class="close" data-close="detail-dialog" aria-label="Закрыть подробности">×</button><div id="detail-content"></div></dialog>
   <dialog id="create-dialog" class="forms editor" aria-labelledby="create-heading"><button class="close" data-close="create-dialog" aria-label="Закрыть добавление">×</button><p class="eyebrow">НОВЫЙ ТОВАР</p><h2 id="create-heading">Добавление в каталог</h2><p class="muted">Название и цена обязательны. Остальные поля можно заполнить позже.</p><div id="create-container"></div><p class="dialog-status" role="status" aria-live="polite"></p></dialog>
   <dialog id="edit-dialog" class="forms editor" aria-labelledby="edit-heading"><button class="close" data-close="edit-dialog" aria-label="Закрыть редактирование">×</button><p class="eyebrow">УПРАВЛЕНИЕ ТОВАРОМ</p><h2 id="edit-heading">Редактирование</h2><div id="edit-container"></div><p class="dialog-status" role="status" aria-live="polite"></p></dialog>
+  <dialog id="reviewer-dialog" aria-labelledby="reviewer-title"><button class="close" data-close="reviewer-dialog" aria-label="Закрыть карточку автора" autofocus>×</button><h2 id="reviewer-title">Автор отзыва</h2><div id="reviewer-content" aria-live="polite"></div></dialog>
 </body>
 </html>
