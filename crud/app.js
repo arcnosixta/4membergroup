@@ -78,6 +78,22 @@ async function loadProducts() {
   try { app.products = await getProducts(); app.ready = true; showStatus('Коллекция загружена.'); }
   catch (error) { showStatus('Не удалось загрузить товары. ' + error.message, true); retryButton.hidden = false; }
   finally { document.getElementById('loading').hidden = true; setBusy(false); }
+  if (app.ready) openProductFromUrl();
+}
+
+// Ссылка из корзины открывает полную карточку после загрузки каталога.
+// Обычный URL можно скопировать, обновить или открыть в новой вкладке.
+function openProductFromUrl() {
+  const value = new URLSearchParams(window.location.search).get('product');
+  if (value === null) return;
+  const id = Number(value);
+  const product = /^\d+$/.test(value) && Number.isSafeInteger(id) && id > 0
+    ? app.products.find(item => item.id === id) : null;
+  if (!product) {
+    showStatus('Товар по этой ссылке не найден. Выберите другой товар в каталоге.', true);
+    return;
+  }
+  showDetails(product, app);
 }
 initCreate(app); initEdit(app); initDelete(app);
 addButton.addEventListener('click', () => {

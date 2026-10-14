@@ -8,6 +8,8 @@
 .cart-product { display:flex; gap:16px; padding:16px 0; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
 .cart-product .image-frame { width:88px; height:88px; flex-shrink:0; }
 .cart-product h4 { margin:0; }
+.cart-product:hover { background:var(--paper); text-decoration:none; }
+.cart-product:hover h4 { text-decoration:underline; }
 @media(max-width:768px) {
   .reviewer-layout { grid-template-columns:1fr; }
   .reviewer-profile { border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:24px; }

@@ -69,7 +69,9 @@ async function openReviewer(review) {
         for (const cart of data) {
           carts.append(element('h4', 'Корзина №' + cart.id));
           for (const product of cart.products) {
-            const row = element('article', undefined, 'cart-product');
+            const row = element('a', undefined, 'cart-product');
+            row.href = 'crud.html?product=' + encodeURIComponent(product.id);
+            row.setAttribute('aria-label', 'Открыть товар: ' + product.title);
             const info = element('div');
             info.append(element('h4', product.title), element('p', `${product.quantity} шт. × ${money(product.price)}`));
             row.append(productImage(product.thumbnail, product.title), info); carts.append(row);
