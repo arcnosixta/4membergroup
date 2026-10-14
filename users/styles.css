@@ -1,19 +1,27 @@
-#people { list-style:none; padding:0; margin:24px 0; }
-.person-row { display:flex; align-items:center; gap:16px; border-bottom:1px solid var(--line); background:white; padding:16px; }
-.person-open { display:flex; align-items:center; gap:20px; flex:1; min-width:0; text-align:left; background:white; color:var(--ink); padding:8px; }
-.person-avatar { position:relative; flex-shrink:0; width:64px; height:64px; background:#eaf0e8; display:grid; place-items:center; border-radius:8px; overflow:hidden; font-size:24px; }
+#people { list-style:none; padding:0; margin:24px 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:20px; }
+.person-row { min-width:0; border:1px solid var(--line); border-radius:8px; background:white; padding:16px; }
+.person-open { display:block; width:100%; text-align:left; background:white; color:var(--ink); padding:0; }
+.person-avatar { position:relative; flex-shrink:0; width:72px; height:72px; background:#eaf0e8; display:grid; place-items:center; border-radius:8px; overflow:hidden; font-size:24px; }
 .person-avatar img { position:absolute; width:100%; height:100%; object-fit:cover; background:#eaf0e8; }
-.person-name { display:flex; flex-direction:column; flex:1; min-width:0; overflow-wrap:anywhere; }
-.role-badge { display:inline-block; background:#eaf0e8; color:#206250; padding:4px 12px; border-radius:4px; font-size:12px; }
-.person-actions { display:flex; gap:8px; }
-.person-details { display:grid; grid-template-columns:280px minmax(0,1fr); gap:32px; padding-top:16px; overflow-wrap:anywhere; }
-.person-details .person-avatar { width:100%; height:auto; aspect-ratio:1; font-size:64px; }
-.person-details h2 { margin:8px 0; }
+.user-card { width:380px; max-width:100%; min-height:132px; display:flex; align-items:center; gap:16px; padding:16px; border:1px solid var(--line); border-radius:8px; background:#f6f7f3; color:var(--ink); }
+.user-card-text { min-width:0; display:flex; flex-direction:column; overflow-wrap:anywhere; }
+.user-card-text strong { font-size:17px; }
+.user-card-id { color:var(--muted); font-size:12px; margin-top:8px; }
+.role-badge { display:inline-block; background:#eaf0e8; color:#206250; padding:4px 12px; border-radius:4px; font-size:12px; margin-top:12px; }
+.person-actions { display:flex; gap:8px; margin-top:16px; }
+.person-details { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; padding-top:16px; overflow-wrap:anywhere; }
+.profile-half { padding-right:32px; border-right:1px solid var(--line); }
+.profile-half > .person-avatar { width:100%; height:auto; aspect-ratio:1; max-width:300px; font-size:64px; }
+.profile-half h2 { margin:24px 0 8px; }
+.card-half { min-width:0; }
+.card-half > h3 { margin-top:32px; }
 button:disabled { cursor:default; }
 @media(max-width:768px) {
-  .person-row { flex-wrap:wrap; }
-  .person-open { flex-basis:100%; flex-wrap:wrap; gap:12px; }
   .person-details { grid-template-columns:1fr; }
-  .person-details .person-avatar { max-width:220px; }
-  .person-actions { margin-left:auto; }
+  .profile-half { border-right:0; padding-right:0; border-bottom:1px solid var(--line); padding-bottom:24px; }
+  .profile-half > .person-avatar { max-width:220px; }
+}
+@media(max-width:400px) {
+  .user-card { padding:12px; gap:12px; }
+  .user-card .person-avatar { width:56px; height:56px; }
 }

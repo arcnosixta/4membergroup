@@ -1,6 +1,6 @@
 import { getUsers, roleLabels } from './api.js';
 import { selectUsers, fullName } from './list.js';
-import { element, avatar, showDetails } from './details.js';
+import { element, userCard, showDetails } from './details.js';
 import { initCreate } from './create.js';
 import { initEdit } from './edit.js';
 import { initDelete } from './delete.js';
@@ -38,9 +38,7 @@ function render() {
     const open = element('button', undefined, 'person-open');
     open.type = 'button'; open.disabled = app.busy;
     open.setAttribute('aria-label', 'Открыть профиль: ' + fullName(user));
-    const name = element('span', undefined, 'person-name');
-    name.append(element('strong', fullName(user)), element('span', '@' + user.username, 'muted'));
-    open.append(avatar(user), name, element('span', roleLabels[user.role], 'role-badge'));
+    open.append(userCard(user));
     open.addEventListener('click', () => showDetails(user));
     const actions = element('div', undefined, 'person-actions');
     for (const [label, handler] of [['Изменить', app.onEdit], ['Удалить', app.onDelete]]) {
@@ -50,7 +48,8 @@ function render() {
       button.addEventListener('click', () => { if (!app.busy && handler) handler(user.id); });
       actions.append(button);
     }
-    item.append(open, actions); list.append(item);
+    const badge = element('span', roleLabels[user.role], 'role-badge');
+    item.append(open, badge, actions); list.append(item);
   }
   document.getElementById('count').textContent = app.ready ? `${users.length} из ${app.users.length} человек` : '';
   const empty = document.getElementById('empty'); empty.hidden = !app.ready || users.length > 0;
