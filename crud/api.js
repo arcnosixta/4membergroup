@@ -26,6 +26,16 @@ export async function getProducts() {
   return data.products;
 }
 
+export async function getProduct(id) {
+  if (!Number.isSafeInteger(id) || id <= 0) throw new Error('Неверный ID товара.');
+  const product = await request('/' + id);
+  if (product?.id !== id || typeof product.title !== 'string' ||
+      !Number.isFinite(product.price) || product.price < 0) {
+    throw new Error('Сервер вернул неверные данные товара.');
+  }
+  return product;
+}
+
 export function createProduct(data) {
   return request('/add', 'POST', data);
 }

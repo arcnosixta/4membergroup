@@ -1,4 +1,4 @@
-import { getProducts } from './api.js';
+import { getProducts, getProduct } from './api.js';
 import { initCreate } from './create.js';
 import { initEdit } from './edit.js';
 import { initDelete } from './delete.js';
@@ -11,9 +11,15 @@ const search = document.getElementById('search');
 const category = document.getElementById('category');
 const sort = document.getElementById('sort');
 const addButton = document.getElementById('add-product');
+const productParam = new URLSearchParams(window.location.search).get('product');
+if (productParam !== null) {
+  document.querySelector('.page-heading h1').textContent = 'Просмотр товара';
+  const back = element('a', '← Все товары'); back.href = 'crud.html';
+  document.querySelector('main').prepend(back);
+}
 const app = {
   products: [], nextLocalId: -1, busy: false, ready: false, onEdit: null, onDelete: null,
-  render, setBusy, showStatus,
+  render, setBusy, showStatus, openProduct,
   openEditor() {
     document.querySelector('#edit-dialog .dialog-status').textContent = '';
     document.getElementById('edit-dialog').showModal();
@@ -74,26 +80,35 @@ async function loadProducts() {
   if (app.busy || app.ready) return;
   setBusy(true); retryButton.hidden = true;
   document.getElementById('loading').hidden = false;
-  showStatus('Загрузка товаров…');
-  try { app.products = await getProducts(); app.ready = true; showStatus('Коллекция загружена.'); }
+  showStatus(productParam === null ? 'Загрузка товаров…' : 'Загрузка товара…');
+  try {
+    if (productParam === null) app.products = await getProducts();
+    else {
+      if (!/^\d+$/.test(productParam)) throw new Error('Неверный ID товара в ссылке.');
+      app.products = [await getProduct(Number(productParam))];
+    }
+    app.ready = true; showStatus('Данные загружены.');
+  }
   catch (error) { showStatus('Не удалось загрузить товары. ' + error.message, true); retryButton.hidden = false; }
   finally { document.getElementById('loading').hidden = true; setBusy(false); }
-  if (app.ready) openProductFromUrl();
+  if (app.ready && productParam !== null) openProduct(Number(productParam));
 }
 
-// Ссылка из корзины открывает полную карточку после загрузки каталога.
-// Обычный URL можно скопировать, обновить или открыть в новой вкладке.
-function openProductFromUrl() {
-  const value = new URLSearchParams(window.location.search).get('product');
-  if (value === null) return;
-  const id = Number(value);
-  const product = /^\d+$/.test(value) && Number.isSafeInteger(id) && id > 0
-    ? app.products.find(item => item.id === id) : null;
+// Обычный переход из корзины использует уже загруженные данные.
+async function openProduct(id) {
+  if (app.busy) return;
+  let product = app.products.find(item => item.id === id);
   if (!product) {
-    showStatus('Товар по этой ссылке не найден. Выберите другой товар в каталоге.', true);
-    return;
+    // На странице одного товара остальные товары ещё не загружены.
+    if (productParam === null) throw new Error('Товар отсутствует в текущем каталоге или был удалён.');
+    setBusy(true);
+    try { product = await getProduct(id); app.products.push(product); }
+    finally { setBusy(false); }
   }
+  document.getElementById('reviewer-dialog').close();
+  document.getElementById('detail-dialog').close();
   showDetails(product, app);
+  document.getElementById('detail-dialog').scrollTop = 0;
 }
 initCreate(app); initEdit(app); initDelete(app);
 addButton.addEventListener('click', () => {

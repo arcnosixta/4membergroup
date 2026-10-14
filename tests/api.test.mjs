@@ -55,3 +55,16 @@ test('network errors propagate to the interface', async t => {
   t.mock.method(globalThis, 'fetch', async () => { throw new TypeError('Failed to fetch'); });
   await assert.rejects(getProducts, /Failed to fetch/);
 });
+
+test('single product lookup does not load the full catalog and validates identity', async t => {
+  const { getProduct } = await import('../crud/api.js');
+  let data = { id: 5, title: 'Target product', price: 12 };
+  t.mock.method(globalThis, 'fetch', async url => {
+    assert.equal(url, 'https://dummyjson.com/products/5');
+    return Response.json(data);
+  });
+  assert.equal((await getProduct(5)).title, 'Target product');
+  data = { ...data, id: 6 };
+  await assert.rejects(() => getProduct(5), /неверные данные/);
+  await assert.rejects(() => getProduct(0), /ID/);
+});

@@ -60,7 +60,7 @@ export function showDetails(product, app) {
   actions.append(edit, remove); info.append(actions); layout.append(gallery, info); content.append(layout);
   const specs = Object.fromEntries(Object.entries(product).filter(([key]) => !['images', 'thumbnail', 'title', 'description', 'price', 'reviews'].includes(key)));
   content.append(element('h3', 'Характеристики и условия'), valueView(specs));
-  content.append(element('h3', 'Отзывы покупателей'), reviewsView(product.reviews || []));
+  content.append(element('h3', 'Отзывы покупателей'), reviewsView(product.reviews || [], app.openProduct));
   content.append(element('p', '', 'dialog-status'));
   content.lastElementChild.setAttribute('role', 'status');
   document.getElementById('detail-dialog').showModal();

@@ -5,7 +5,7 @@ import { roleLabels } from '../users/api.js';
 import { reviewUsers, findReviewer, getUserCarts } from './review-api.js';
 let requestNumber = 0;
 
-export function reviewsView(reviews) {
+export function reviewsView(reviews, openProduct) {
   if (!reviews.length) return element('p', 'Отзывов пока нет.');
   const list = element('ul', undefined, 'reviews-list');
   for (const review of reviews) {
@@ -15,7 +15,7 @@ export function reviewsView(reviews) {
     const placeholder = element('div', undefined, 'user-card');
     placeholder.append(element('strong', review.reviewerName || 'Автор отзыва'));
     author.append(placeholder);
-    author.addEventListener('click', () => openReviewer(review));
+    author.addEventListener('click', () => openReviewer(review, openProduct));
     reviewUsers().then(users => {
       const user = findReviewer(users, review);
       if (user) author.replaceChildren(userCard(user));
@@ -29,7 +29,7 @@ export function reviewsView(reviews) {
   return list;
 }
 
-async function openReviewer(review) {
+async function openReviewer(review, openProduct) {
   const dialog = document.getElementById('reviewer-dialog');
   const content = document.getElementById('reviewer-content');
   const token = ++requestNumber;
@@ -72,6 +72,15 @@ async function openReviewer(review) {
             const row = element('a', undefined, 'cart-product');
             row.href = 'crud.html?product=' + encodeURIComponent(product.id);
             row.setAttribute('aria-label', 'Открыть товар: ' + product.title);
+            row.addEventListener('click', async event => {
+              // Ctrl/Cmd/Shift сохраняют стандартное открытие ссылки в новой вкладке.
+              if (!openProduct || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              const message = element('p', 'Открываем товар…'); message.setAttribute('role', 'status');
+              row.after(message);
+              try { await openProduct(product.id); message.remove(); }
+              catch (error) { message.textContent = error.message; message.dataset.error = 'true'; }
+            });
             const info = element('div');
             info.append(element('h4', product.title), element('p', `${product.quantity} шт. × ${money(product.price)}`));
             row.append(productImage(product.thumbnail, product.title), info); carts.append(row);
@@ -83,7 +92,7 @@ async function openReviewer(review) {
     }
     await loadCarts();
   } catch (error) {
-    if (current()) showError(content, error, () => openReviewer(review));
+    if (current()) showError(content, error, () => openReviewer(review, openProduct));
   }
 }
 function showError(container, error, retry) {
